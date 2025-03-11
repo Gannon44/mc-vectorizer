@@ -1,4 +1,14 @@
-**Overview:**
+# Minecraft Block Vectorization
+🚀 A Python library for encoding and decoding Minecraft structures using diffusion-ready vector representations. The current implementation handles a custom .npy structure, but I plan to make it more generalizable in the future.
+
+## Features
+✅ **Block Name Vectorization** – Converts block names to 32-dimensional latent vectors.  
+✅ **Efficient Reverse Mapping** – Uses KDTree for fast latent-to-block lookups.  
+✅ **Structure Encoding** – Converts Minecraft `.npy` structures into trainable representations.  
+✅ **Structure Decoding** – Recovers block IDs or average colors from latent vectors.  
+✅ **Command-Line & API Support** – Use as a CLI tool or integrate into your Python code.
+
+## Overview:
 
 The `block_vectorization` module provides a (very incomplete) framework for converting Minecraft structure data between two formats:
 1. **Vectorization:**  
@@ -16,7 +26,7 @@ The `block_vectorization` module provides a (very incomplete) framework for conv
 
 The module is designed for both programmatic use (via single function calls) and via the command–line interface.
 
-**Module Components:**
+## Module Components:
 
 1. **BlockNameVectorizer Class:**  
    - **Purpose:** Build and store a mapping from block names to 32-dimensional latent vectors.
@@ -68,7 +78,7 @@ The module is designed for both programmatic use (via single function calls) and
          - `--stop_at_block_id`: (Flag) If set, the output will be block IDs; otherwise, average colors.
          - `--vectorizer_csv`, `--vectorizer_dir`, `--recreate_vectorizer`, `--latent_dim`: As above.
          
-**Programmatic API Usage:**
+## Programmatic API Usage:
 
 To use the module within your Python code, import the functions and classes:
 
@@ -97,7 +107,7 @@ reversed_data = reverse_vectorize_structure(vectorized, vectorizer, block_name2i
                                               block_id2color=block_id2color, stop_at_block_id=False, latent_dim=32)
 ```
 
-**Command–Line Usage:**
+## Command–Line Usage:
 
 From the terminal, you can run the module using:
 
