@@ -1,6 +1,6 @@
 **Overview:**
 
-The `block_vectorization` module provides a complete framework for converting Minecraft structure data between two formats:
+The `block_vectorization` module provides a (very incomplete) framework for converting Minecraft structure data between two formats:
 1. **Vectorization:**  
    Convert a 3D structure (where each voxel contains either a block ID string or 0) into a 4D latent representation. Each block is represented by a 32‑channel vector built from:
    - Order-based (positional) encoding,
