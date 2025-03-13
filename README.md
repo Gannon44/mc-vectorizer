@@ -1,4 +1,4 @@
-# Minecraft Block Vectorization
+# MC Vectorizer
 🚀 A Python library for encoding and decoding Minecraft structures using diffusion-ready vector representations. The current implementation handles a custom .npy structure, but I plan to make it more generalizable in the future.
 
 ## Features
