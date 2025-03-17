@@ -52,19 +52,19 @@ class BlockNameVectorizer:
         # 1. Order-based (positional) encoding: normalized index (1 channel)
         order_embeddings = np.array([[i / n] for i in range(n)])  # shape (n, 1)
         
-        # 2. Semantic embeddings: use SentenceTransformer then reduce to 15 dimensions via UMAP
+        # 2. Semantic embeddings: use SentenceTransformer then reduce to (self.latent_dim//2)-1 dimensions via UMAP
         model = SentenceTransformer('all-MiniLM-L6-v2')
         semantic_raw = model.encode(block_names, convert_to_numpy=True, show_progress_bar=True)
-        umap_sem = umap.UMAP(n_components=15, random_state=42)
-        semantic_embeddings = umap_sem.fit_transform(semantic_raw)  # shape (n, 15)
+        umap_sem = umap.UMAP(n_components=(self.latent_dim//2)-1, random_state=42)
+        semantic_embeddings = umap_sem.fit_transform(semantic_raw)
         
-        # 3. TF-IDF embeddings: vectorize block names then reduce to 16 dimensions via UMAP
+        # 3. TF-IDF embeddings: vectorize block names then reduce to (latent_dim//2) dimensions via UMAP
         tfidf = TfidfVectorizer()
         tfidf_raw = tfidf.fit_transform(block_names).toarray()
-        umap_tfidf = umap.UMAP(n_components=16, random_state=42)
-        tfidf_embeddings = umap_tfidf.fit_transform(tfidf_raw)  # shape (n, 16)
+        umap_tfidf = umap.UMAP(n_components=(self.latent_dim//2), random_state=42)
+        tfidf_embeddings = umap_tfidf.fit_transform(tfidf_raw)
         
-        # Concatenate all features: 1 + 15 + 16 = 32 channels.
+        # Concatenate all features
         combined_features = np.hstack([order_embeddings, semantic_embeddings, tfidf_embeddings])
         mapping = {name: combined_features[i] for i, name in enumerate(block_names)}
         return mapping
